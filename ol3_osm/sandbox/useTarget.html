@@ -1,0 +1,46 @@
+<!doctype html>
+  <head>
+    <title> Hello OpenStreetMap </title>
+    <link rel="stylesheet" href="../assets/ol3/css/ol.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/samples.css" type="text/css" />
+  </head>
+  <body>
+    <div id="map" class="half-map"></div>
+    <div id="map2" class="half-map"></div>
+    <input type="checkbox" id="visible" checked>Toggle Layer Visibility</input>
+    <button onclick="changeTarget();">Change Target</button>
+<script src="../assets/ol3/js/ol.js">
+</script>
+<script>
+       
+
+        var osmLayer = new ol.layer.Tile({
+          source: new ol.source.OSM()
+        });
+       var birmingham = ol.proj.transform([-1.81185, 52.44314], 'EPSG:4326', 'EPSG:3857');
+       var kolkata = ol.proj.transform([88.36, 22.57], 'EPSG:4326', 'EPSG:3857');
+       
+       var view = new ol.View({
+          center: kolkata,
+          zoom: 10
+        });
+        var map = new ol.Map({
+          target: 'map',
+          layers: [osmLayer],
+          view: view
+        });
+        
+        function changeTarget() {
+         var target = map.getTarget();
+         console.log(target);
+         if (target == 'map') {
+           map.setTarget('map2');
+         } else {
+           map.setTarget('map');
+         }
+        }
+
+        
+    </script>
+  </body>
+</html>
